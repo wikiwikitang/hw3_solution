@@ -73,7 +73,7 @@ const generateTable = ({ tableHeader, tableContent }) => {
   const tableHeaderSection = generateTableHeaderHelper(tableHeader);
   const tableBodySection = generateTableContentHelper(tableContent);
   table.append(tableHeaderSection, ...tableBodySection);
-  document.body.appendChild(table);
+  return table;
 };
 
 const generateListByType = (type, data) => {
@@ -88,7 +88,7 @@ const generateListByType = (type, data) => {
     return listItem;
   });
   list.append(...listItemNodeArray);
-  document.body.append(list);
+  return list;
 };
 
 const generateDropDownList = (data) => {
@@ -100,10 +100,10 @@ const generateDropDownList = (data) => {
     return dropDownListOption;
   });
   dropDownListContainer.append(...dropDownListNodeArray);
-  document.body.append(dropDownListContainer);
+  return dropDownListContainer;
 };
 
-generateTable(tableInfo);
-generateListByType('ol', list);
-generateListByType('ul', list);
-generateDropDownList(dropDownList);
+document.body.append(generateTable(tableInfo));
+document.body.append(generateListByType('ol', list));
+document.body.append(generateListByType('ul', list));
+document.body.append(generateDropDownList(dropDownList));
