@@ -70,6 +70,7 @@ const generateTableContentHelper = (tableContent) => {
 
 const generateTable = ({ tableHeader, tableContent }) => {
   const table = document.createElement('table');
+  table.id = 'stu-info-table';
   const tableHeaderSection = generateTableHeaderHelper(tableHeader);
   const tableBodySection = generateTableContentHelper(tableContent);
   table.append(tableHeaderSection, ...tableBodySection);
@@ -99,11 +100,37 @@ const generateDropDownList = (data) => {
     dropDownListOption.value = value;
     return dropDownListOption;
   });
+
   dropDownListContainer.append(...dropDownListNodeArray);
+  dropDownListContainer.onchange = (e) => {
+    console.log(e.target.value);
+  };
+
   return dropDownListContainer;
 };
 
-document.body.append(generateTable(tableInfo));
-document.body.append(generateListByType('ol', list));
-document.body.append(generateListByType('ul', list));
-document.body.append(generateDropDownList(dropDownList));
+document.querySelector('#q1-table').append(generateTable(tableInfo));
+document.querySelector('#q2').append(generateListByType('ol', list));
+document.querySelector('#q2').append(generateListByType('ul', list));
+document.querySelector('#q3').append(generateDropDownList(dropDownList));
+
+const addContentBtn = document.querySelector('#add-content-btn');
+const form = document.querySelector('#q1-form');
+addContentBtn.onclick = (e) => {
+  e.preventDefault();
+  e.stopPropagation();
+  const valuesInForm = [...form.elements]
+    .filter((ele) => ele.tagName === 'INPUT')
+    .map((ele) => ele.value);
+  //will construct the new object
+  const newDataObject = {};
+  tableInfo.tableHeader.forEach((header, index) => {
+    newDataObject[header] = valuesInForm[index];
+  });
+
+  //add the new row into the bottom of the table
+  const table = document.querySelector('#stu-info-table');
+  //leverage generateTableContentHelper
+  table.append(...generateTableContentHelper([newDataObject]));
+  form.reset();
+};

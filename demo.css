@@ -1,0 +1,32 @@
+#q1-table > table,
+th,
+tr,
+td {
+  border: 1px solid black;
+  border-collapse: collapse;
+}
+
+#q1-table {
+  margin-bottom: 10px;
+}
+
+#q1-form {
+  width: 450px;
+}
+
+.form-section {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  border: 1px dashed black;
+}
+
+.form-section label {
+  display: inline-block;
+  width: 120px;
+}
+
+.button-section {
+  display: flex;
+  justify-content: center;
+}
